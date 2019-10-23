@@ -5,20 +5,21 @@
 #include "Node2D.hpp"
 #include "Vector2.hpp"
 #include "Grid/Grid.hpp"
+#include "PoolArrays.hpp"
 
 namespace godot {
 
     class GD_Grid : public Node2D {
         GODOT_CLASS(GD_Grid, Node2D);
     public:
-        Vector2 _count;
+        int _count_total;
         float _elem_size;
         bool _auto_init;
+        Vector2 _count_xy;
     private:
         Grid _grid;
     public:
         static void _register_methods();
-        static void init_callback(void* me, void* data, Vector2 pos);
 
         GD_Grid();
         ~GD_Grid();
@@ -27,7 +28,9 @@ namespace godot {
         void createGrid();
         virtual void _ready();
 
+        int getIndex(Vector2 pos);
         Vector2 getClosestPosition(Vector2 pos);
+        PoolVector2Array getAllPositions();
     };
 
 
